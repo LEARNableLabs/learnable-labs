@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEARNable Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<!-- Canvases -->
+<canvas id="particles"></canvas>
+
+<!-- Controls Panel (populated by JS) -->
+<div class="controls" id="controls"></div>
+
+<!-- UI Buttons -->
+<button class="toggle-btn" id="toggle-btn">Panel</button>
+<button class="fullpage-btn" id="fullpage-btn">Full Page</button>
+
+<!-- Main Content -->
+<div class="page" id="page">
+  <nav class="site-nav" id="site-nav">
+    <div class="brand">LEARNable Labs</div>
+    <a href="#">Research</a>
+    <a href="#">Product</a>
+    <a href="#">Capabilities</a>
+    <a href="#">Team</a>
+  </nav>
+
+  <section class="hero" id="hero-section">
+    <div class="shape-hero-wrap"><canvas id="shape-canvas"></canvas></div>
+    <h1 class="reveal" style="opacity: 0;">LEARNable Labs</h1>
+    <p class="reveal" style="opacity: 0;">Compounding Deliberate Curiosity</p>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <section>
+    <h2 class="reveal">Research</h2>
+    <p class="body reveal">We're solving education at scale in an AI-driven world. Learning is inherently challenging — it shouldn't be made harder by poor tools.</p>
+    <p class="body reveal">We harness the natural human appetite for social interaction to build compounding learning habits. Imagine a study companion with encyclopedic knowledge and infinite patience, always available when you need them.</p>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <section>
+    <h2 class="reveal">Capabilities</h2>
+    <div class="card-grid">
+      <div class="card reveal">
+        <h3>Deliberate Practice</h3>
+        <p>Daily adaptive challenges that target your learning edge</p>
+      </div>
+      <div class="card reveal">
+        <h3>Spaced Repetition</h3>
+        <p>Data-driven recall scheduling — never forget what matters</p>
+      </div>
+      <div class="card reveal">
+        <h3>Learning Anywhere</h3>
+        <p>Seamlessly continue across every platform, anytime</p>
+      </div>
+      <div class="card reveal">
+        <h3>Effortless Consistency</h3>
+        <p>Motivation as a service — we handle the discipline</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <section>
+    <h2 class="reveal">Product</h2>
+    <p class="body reveal">We're building OpenTutor — an AI companion that makes learning niche topics feel natural and achievable.</p>
+    <p class="body reveal">Whether you're studying for exams, mastering skills for work, or pursuing pure curiosity, OpenTutor adapts to your pace and meets you where you are.</p>
+  </section>
+
+  <div class="divider reveal"></div>
+
+  <section>
+    <h2 class="reveal">Team</h2>
+    <p class="body reveal">Built by researchers and engineers from MIT, Red Hat AI and IBM, on a mission to democratize access to world-class learning experiences.</p>
+  </section>
+
+  <footer class="reveal">
+    LEARNable Labs — Compounding Deliberate Curiosity
+  </footer>
+</div>
+
+<!-- Prompt Bar -->
+<div class="prompt-bar" id="prompt-bar">
+  <div class="prompt-text" id="prompt-out"></div>
+  <button class="copy-btn" id="copy-btn">Copy</button>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
