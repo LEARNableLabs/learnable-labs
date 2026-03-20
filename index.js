@@ -10,40 +10,46 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const PRESETS = {
-  frl:      { shape: 'torus', points: 200, major: 200, minor: 25, rotspeed: 1, dotsize: 2.5, glow: 5, repel: 40, dur: 700, slide: 24, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 12, blurdur: 900, stagger: 80, count: 200, speed: 0.4 },
-  minimal:  { shape: 'circle', points: 100, major: 200, minor: 60, rotspeed: 0.5, dotsize: 2, glow: 0, repel: 20, dur: 500, slide: 12, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 0, blurdur: 500, stagger: 50, count: 0, speed: 0 },
-  dramatic: { shape: 'torus', points: 400, major: 250, minor: 80, rotspeed: 0.5, dotsize: 3, glow: 10, repel: 60, dur: 1200, slide: 60, easing: 'cubic-bezier(0.16,1,0.3,1)', thresh: 0.1, blur: 20, blurdur: 1400, stagger: 150, count: 120, speed: 0.2 },
-  fast:     { shape: 'sphere', points: 200, major: 180, minor: 50, rotspeed: 3, dotsize: 1.5, glow: 3, repel: 30, dur: 250, slide: 8, easing: 'cubic-bezier(0.34,1.56,0.64,1)', thresh: 0.05, blur: 4, blurdur: 300, stagger: 30, count: 30, speed: 1 },
-  dreamy:   { shape: 'helix', points: 300, major: 200, minor: 80, rotspeed: 0.3, dotsize: 3.5, glow: 12, repel: 50, dur: 1800, slide: 40, easing: 'cubic-bezier(0.4,0,0.2,1)', thresh: 0.2, blur: 25, blurdur: 2000, stagger: 200, count: 100, speed: 0.15 },
-  chaos:    { shape: 'lorenz', points: 350, major: 250, minor: 60, rotspeed: 1.2, dotsize: 2, glow: 6, repel: 20, dur: 900, slide: 30, easing: 'cubic-bezier(0.16,1,0.3,1)', thresh: 0.15, blur: 8, blurdur: 1000, stagger: 60, count: 40, speed: 0.3 },
-  life:     { shape: 'life', points: 200, major: 200, minor: 60, rotspeed: 0.6, dotsize: 2.5, glow: 4, repel: 0, dur: 800, slide: 20, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 10, blurdur: 900, stagger: 80, count: 30, speed: 0.2, gridsize: 50, wolframw: 80, wolframr: 60, wolframrule: 30, tick: 6 }
+  warm:     { points: 200, major: 200, minor: 25, rotspeed: 1, dotsize: 2.5, glow: 5, repel: 40, dur: 700, slide: 24, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 12, blurdur: 900, stagger: 80, count: 200, speed: 0.4 },
+  minimal:  { points: 100, major: 200, minor: 60, rotspeed: 0.5, dotsize: 2, glow: 0, repel: 20, dur: 500, slide: 12, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 0, blurdur: 500, stagger: 50, count: 0, speed: 0 },
+  dramatic: { points: 400, major: 250, minor: 80, rotspeed: 0.5, dotsize: 3, glow: 10, repel: 60, dur: 1200, slide: 60, easing: 'cubic-bezier(0.16,1,0.3,1)', thresh: 0.1, blur: 20, blurdur: 1400, stagger: 150, count: 120, speed: 0.2 },
+  fast:     { points: 200, major: 180, minor: 50, rotspeed: 3, dotsize: 1.5, glow: 3, repel: 30, dur: 250, slide: 8, easing: 'cubic-bezier(0.34,1.56,0.64,1)', thresh: 0.05, blur: 4, blurdur: 300, stagger: 30, count: 30, speed: 1 },
+  dreamy:   { points: 300, major: 200, minor: 80, rotspeed: 0.3, dotsize: 3.5, glow: 12, repel: 50, dur: 1800, slide: 40, easing: 'cubic-bezier(0.4,0,0.2,1)', thresh: 0.2, blur: 25, blurdur: 2000, stagger: 200, count: 100, speed: 0.15 },
 };
 
 const CONTROL_SECTIONS = [
   {
     title: 'Presets',
     type: 'presets',
-    options: ['frl', 'minimal', 'dramatic', 'fast', 'dreamy', 'chaos', 'life'],
-    labels: ['FRL Original', 'Minimal', 'Dramatic', 'Snappy', 'Dreamy', 'Chaos', 'Life']
+    options: ['warm', 'minimal', 'dramatic', 'fast', 'dreamy'],
+    labels: ['Warm', 'Minimal', 'Dramatic', 'Snappy', 'Dreamy']
   },
   {
     title: '3D Shape',
     controls: [
-      { type: 'select', id: 'shape', label: 'Shape', options: [
-        { value: 'torus', label: 'Torus (donut)' },
-        { value: 'sphere', label: 'Sphere' },
-        { value: 'circle', label: 'Circle' },
-        { value: 'cube', label: 'Cube' },
-        { value: 'helix', label: 'Helix' },
-        { value: 'lorenz', label: 'Lorenz Attractor' },
-        { value: 'rossler', label: 'Rossler Attractor' },
-        { value: 'diverge', label: 'Diverge (order to chaos)' },
-        { value: 'life', label: 'Game of Life' },
-        { value: 'wolfram', label: 'Wolfram 1D CA' }
+      { type: 'select', id: 'shape', label: 'Visualization', optgroups: [
+        { label: 'Shapes', options: [
+          { value: 'torus', label: 'Torus' },
+          { value: 'sphere', label: 'Sphere' },
+          { value: 'circle', label: 'Circle' },
+          { value: 'cube', label: 'Cube' },
+          { value: 'helix', label: 'Helix' }
+        ]},
+        { label: 'Divergent Shape', options: [
+          { value: 'diverge', label: 'Diverge (order → chaos)' }
+        ]},
+        { label: 'Chaotic Systems', options: [
+          { value: 'lorenz', label: 'Lorenz Attractor' },
+          { value: 'rossler', label: 'Rössler Attractor' }
+        ]},
+        { label: 'Cellular Automata', options: [
+          { value: 'life', label: 'Game of Life' },
+          { value: 'wolfram', label: 'Wolfram 1D CA' }
+        ]}
       ]},
       { type: 'range', id: 'points', label: 'Points', min: 50, max: 500, step: 10, value: 200, unit: '' },
-      { type: 'range', id: 'major', label: 'Major Radius', min: 80, max: 350, step: 10, value: 200, unit: '' },
-      { type: 'range', id: 'minor', label: 'Minor Radius', min: 5, max: 120, step: 5, value: 25, unit: '' },
+      { type: 'range', id: 'major', label: 'Major Radius', min: 80, max: 700, step: 10, value: 200, unit: '' },
+      { type: 'range', id: 'minor', label: 'Minor Radius', min: 5, max: 120, step: 5, value: 40, unit: '' },
       { type: 'range', id: 'rotspeed', label: 'Rotation Speed', min: 0, max: 4, step: 0.1, value: 1.0, unit: '' },
       { type: 'range', id: 'dotsize', label: 'Point Size', min: 1, max: 6, step: 0.5, value: 2.5, unit: '' },
       { type: 'range', id: 'glow', label: 'Glow Size', min: 0, max: 15, step: 1, value: 5, unit: '' },
@@ -107,8 +113,11 @@ const BURST_CONFIG = {
    GLOBAL STATE
    ═══════════════════════════════════════════════════════════════════════════ */
 
+const GEOMETRIC_SHAPES = ['torus', 'sphere', 'circle', 'cube', 'helix'];
+
 const state = {
   frameCount: 0,
+  divergeBaseShape: 'torus',
   mouse: { x: 0, y: 0, active: false },
   burst: { active: false, x: 0, y: 0, strength: 0, frame: 0 },
   shapePoints: [],
@@ -163,7 +172,7 @@ function generateControls() {
     if (section.type === 'presets') {
       html += '<div class="preset-bar" id="preset-bar">';
       section.options.forEach((preset, i) => {
-        const active = preset === 'frl' ? ' active' : '';
+        const active = preset === 'warm' ? ' active' : '';
         html += `<button class="preset-btn${active}" data-preset="${preset}">${section.labels[i]}</button>`;
       });
       html += '</div>';
@@ -177,9 +186,19 @@ function generateControls() {
         } else if (control.type === 'select') {
           html += `<label>${control.label}</label>`;
           html += `<select id="s-${control.id}">`;
-          control.options.forEach(opt => {
-            html += `<option value="${opt.value}">${opt.label}</option>`;
-          });
+          if (control.optgroups) {
+            control.optgroups.forEach(group => {
+              html += `<optgroup label="${group.label}">`;
+              group.options.forEach(opt => {
+                html += `<option value="${opt.value}">${opt.label}</option>`;
+              });
+              html += `</optgroup>`;
+            });
+          } else {
+            control.options.forEach(opt => {
+              html += `<option value="${opt.value}">${opt.label}</option>`;
+            });
+          }
           html += `</select>`;
         }
       });
@@ -187,8 +206,6 @@ function generateControls() {
   });
 
   html += '<button class="replay-btn" id="replay-btn">Replay All Animations</button>';
-  html += '<label>Canvas Size <span class="val" id="v-canvasscale">1x hero</span></label>';
-  html += '<input type="range" id="r-canvasscale" min="1" max="10" step="1" value="1" data-unit="x hero">';
 
   container.innerHTML = html;
 }
@@ -212,9 +229,7 @@ const ShapeRenderer = {
   },
 
   resize() {
-    const hero = $('hero-section');
-    const scale = getVal('r-canvasscale') || 1;
-    const size = Math.min(hero.clientWidth, hero.clientHeight) * scale;
+    const size = Math.min(window.innerWidth, window.innerHeight) * 0.9;
     this.canvas.width = size;
     this.canvas.height = size;
   },
@@ -245,6 +260,10 @@ const ShapeRenderer = {
   },
 
   initPoints() {
+    const shape = getVal('s-shape');
+    if (shape === 'diverge') {
+      state.divergeBaseShape = GEOMETRIC_SHAPES[Math.floor(Math.random() * GEOMETRIC_SHAPES.length)];
+    }
     const count = getVal('r-points');
     state.shapePoints = [];
     for (let i = 0; i < count; i++) {
@@ -338,7 +357,7 @@ const ShapeRenderer = {
       }
       case 'lorenz': {
         const sigma = 10, rho = 28, beta = 8/3;
-        const dt = 0.005 * rotSpeed;
+        const dt = 0.002 * rotSpeed;
         const steps = 3;
         for (let s = 0; s < steps; s++) {
           const dxdt = sigma * (point.ly - point.lx);
@@ -359,7 +378,7 @@ const ShapeRenderer = {
       }
       case 'rossler': {
         const a = 0.2, b = 0.2, c = 5.7;
-        const dt = 0.008 * rotSpeed;
+        const dt = 0.012 * rotSpeed;
         const steps = 3;
         for (let s = 0; s < steps; s++) {
           const dxdt = -point.ry - point.rz;
@@ -384,11 +403,10 @@ const ShapeRenderer = {
       case 'diverge': {
         const chaos = Math.min(frame * 0.0004 * rotSpeed, 1);
         const chaos3 = chaos * chaos * chaos;
-        const u = t * Math.PI * 2;
-        const v = (idx % 20) / 20 * Math.PI * 2 + 0.001 * frame * rotSpeed;
-        const tx = (majorR + minorR * Math.cos(v)) * Math.cos(u);
-        const ty = (majorR + minorR * Math.cos(v)) * Math.sin(u);
-        const tz = minorR * Math.sin(v);
+        const basePos = this.getPosition(point, state.divergeBaseShape, frame, cx, cy);
+        const tx = basePos.x - cx;
+        const ty = basePos.y - cy;
+        const tz = basePos.z;
         point.divergeVx += (Math.sin(point.seed + frame * 0.01) * 0.15) * chaos3;
         point.divergeVy += (Math.cos(point.seed * 1.3 + frame * 0.013) * 0.15) * chaos3;
         point.divergeVz += (Math.sin(point.seed * 0.7 + frame * 0.009) * 0.1) * chaos3;
@@ -852,7 +870,7 @@ const UIController = {
   bindSliders() {
     const sliderIds = ['points', 'major', 'minor', 'rotspeed', 'dotsize', 'glow', 'repel',
                       'dur', 'slide', 'thresh', 'blur', 'blurdur', 'stagger', 'count', 'speed',
-                      'gridsize', 'wolframw', 'wolframr', 'wolframrule', 'tick', 'canvasscale'];
+                      'gridsize', 'wolframw', 'wolframr', 'wolframrule', 'tick'];
 
     sliderIds.forEach(id => {
       const slider = $('r-' + id);
@@ -879,9 +897,6 @@ const UIController = {
       }
       if (['count', 'speed'].includes(id)) {
         slider.addEventListener('change', () => BackgroundParticles.create());
-      }
-      if (id === 'canvasscale') {
-        slider.addEventListener('input', () => ShapeRenderer.resize());
       }
     });
   },
@@ -965,9 +980,8 @@ const UIController = {
         const preset = PRESETS[name];
         if (!preset) return;
 
-        setVal('s-shape', preset.shape);
         Object.keys(preset).forEach(key => {
-          if (key !== 'shape' && key !== 'easing') {
+          if (key !== 'easing') {
             setVal('r-' + key, preset[key]);
           }
         });
@@ -1014,7 +1028,7 @@ const UIController = {
   },
 
   updatePrompt() {
-    const d = PRESETS.frl;
+    const d = PRESETS.warm;
     const parts = [];
     const shape = getVal('s-shape');
     if (shape !== 'torus') parts.push('a ' + shape + ' shape instead of torus');
