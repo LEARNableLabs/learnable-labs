@@ -115,6 +115,13 @@ const BURST_CONFIG = {
 
 const GEOMETRIC_SHAPES = ['torus', 'sphere', 'circle', 'cube', 'helix'];
 
+const SHAPE_CATEGORIES = [
+  ['torus', 'sphere', 'circle', 'cube', 'helix'],
+  ['diverge'],
+  ['lorenz', 'rossler'],
+  ['life', 'wolfram']
+];
+
 const state = {
   frameCount: 0,
   divergeBaseShape: 'torus',
@@ -1063,13 +1070,7 @@ const UIController = {
   },
 
   randomizeShape() {
-    const categories = [
-      ['torus', 'sphere', 'circle', 'cube', 'helix'],
-      ['diverge'],
-      ['lorenz', 'rossler'],
-      ['life', 'wolfram']
-    ];
-    const cat = categories[Math.floor(Math.random() * categories.length)];
+    const cat = SHAPE_CATEGORIES[Math.floor(Math.random() * SHAPE_CATEGORIES.length)];
     const shape = cat[Math.floor(Math.random() * cat.length)];
     const shapeSelect = $('s-shape');
     shapeSelect.value = shape;
