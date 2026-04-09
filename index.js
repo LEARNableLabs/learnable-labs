@@ -1072,6 +1072,20 @@ const UIController = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   PLAYGROUND EASTER EGG (Ctrl+. / Cmd+.)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+function setupPlaygroundShortcut() {
+  document.addEventListener('keydown', e => {
+    if (e.key === '.' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      if (window.innerWidth <= 768) return;
+      document.body.classList.toggle('playground');
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    INITIALIZATION
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -1088,6 +1102,7 @@ function init() {
   ScrollReveal.revealHero();
   ScrollReveal.setupObserver();
   UIController.updatePrompt();
+  setupPlaygroundShortcut();
 }
 
 // Auto-initialize when DOM is ready
