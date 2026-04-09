@@ -560,3 +560,41 @@ body.playground .page {
 body.playground .controls.collapsed ~ .page {
   margin-left: 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE (basic responsiveness)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .site-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 14px 20px;
+    gap: 12px;
+  }
+
+  .site-nav .brand {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  section {
+    padding: 24px 20px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-btn {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}
