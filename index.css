@@ -47,7 +47,6 @@ body {
 .page {
   position: relative;
   z-index: 1;
-  margin-left: 280px;
   padding-bottom: 80px;
   transition: margin-left 0.3s ease;
 }
@@ -204,7 +203,7 @@ body {
   transition: left 0.3s ease;
 }
 
-.controls:not(.collapsed) ~ .toggle-btn {
+body.playground .controls:not(.collapsed) ~ .toggle-btn {
   left: 292px;
 }
 
@@ -497,4 +496,42 @@ footer {
 
 .reveal.visible {
   opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LANDING PAGE MODE (default)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.controls,
+.prompt-bar,
+.toggle-btn,
+.fullpage-btn {
+  display: none;
+}
+
+.page {
+  margin-left: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PLAYGROUND MODE (activated via Ctrl+. / Cmd+.)
+   ═══════════════════════════════════════════════════════════════════════════ */
+body.playground .controls {
+  display: block;
+}
+
+body.playground .prompt-bar {
+  display: flex;
+}
+
+body.playground .toggle-btn,
+body.playground .fullpage-btn {
+  display: block;
+}
+
+body.playground .page {
+  margin-left: 280px;
+}
+
+body.playground .controls.collapsed ~ .page {
+  margin-left: 0;
 }
