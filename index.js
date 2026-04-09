@@ -10,7 +10,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const PRESETS = {
-  warm:     { points: 200, major: 200, minor: 25, rotspeed: 1, dotsize: 2.5, glow: 5, repel: 40, dur: 700, slide: 24, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 12, blurdur: 900, stagger: 80, count: 200, speed: 0.4 },
+  warm:     { points: 200, major: 300, minor: 25, rotspeed: 0.6, dotsize: 2.5, glow: 5, repel: 15, dur: 700, slide: 24, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 12, blurdur: 900, stagger: 80, count: 200, speed: 0.4 },
   minimal:  { points: 100, major: 200, minor: 60, rotspeed: 0.5, dotsize: 2, glow: 0, repel: 20, dur: 500, slide: 12, easing: 'cubic-bezier(0,0,0.2,1)', thresh: 0.15, blur: 0, blurdur: 500, stagger: 50, count: 0, speed: 0 },
   dramatic: { points: 400, major: 250, minor: 80, rotspeed: 0.5, dotsize: 3, glow: 10, repel: 60, dur: 1200, slide: 60, easing: 'cubic-bezier(0.16,1,0.3,1)', thresh: 0.1, blur: 20, blurdur: 1400, stagger: 150, count: 120, speed: 0.2 },
   fast:     { points: 200, major: 180, minor: 50, rotspeed: 3, dotsize: 1.5, glow: 3, repel: 30, dur: 250, slide: 8, easing: 'cubic-bezier(0.34,1.56,0.64,1)', thresh: 0.05, blur: 4, blurdur: 300, stagger: 30, count: 30, speed: 1 },
@@ -48,12 +48,12 @@ const CONTROL_SECTIONS = [
         ]}
       ]},
       { type: 'range', id: 'points', label: 'Points', min: 50, max: 500, step: 10, value: 200, unit: '' },
-      { type: 'range', id: 'major', label: 'Major Radius', min: 80, max: 700, step: 10, value: 200, unit: '' },
+      { type: 'range', id: 'major', label: 'Major Radius', min: 80, max: 700, step: 10, value: 300, unit: '' },
       { type: 'range', id: 'minor', label: 'Minor Radius', min: 5, max: 120, step: 5, value: 40, unit: '' },
-      { type: 'range', id: 'rotspeed', label: 'Rotation Speed', min: 0, max: 4, step: 0.1, value: 1.0, unit: '' },
+      { type: 'range', id: 'rotspeed', label: 'Rotation Speed', min: 0, max: 4, step: 0.1, value: 0.6, unit: '' },
       { type: 'range', id: 'dotsize', label: 'Point Size', min: 1, max: 6, step: 0.5, value: 2.5, unit: '' },
       { type: 'range', id: 'glow', label: 'Glow Size', min: 0, max: 15, step: 1, value: 5, unit: '' },
-      { type: 'range', id: 'repel', label: 'Mouse Repel', min: 0, max: 100, step: 5, value: 40, unit: '' }
+      { type: 'range', id: 'repel', label: 'Mouse Repel', min: 0, max: 100, step: 5, value: 15, unit: '' }
     ]
   },
   {
@@ -1063,10 +1063,16 @@ const UIController = {
   },
 
   randomizeShape() {
+    const categories = [
+      ['torus', 'sphere', 'circle', 'cube', 'helix'],
+      ['diverge'],
+      ['lorenz', 'rossler'],
+      ['life', 'wolfram']
+    ];
+    const cat = categories[Math.floor(Math.random() * categories.length)];
+    const shape = cat[Math.floor(Math.random() * cat.length)];
     const shapeSelect = $('s-shape');
-    const options = shapeSelect.options;
-    const randomIdx = Math.floor(Math.random() * options.length);
-    shapeSelect.selectedIndex = randomIdx;
+    shapeSelect.value = shape;
     document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
   }
 };
@@ -1090,6 +1096,7 @@ function setupPlaygroundShortcut() {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 function init() {
+  window.scrollTo(0, 0);
   generateControls();
   ShapeRenderer.init();
   CASimulator.initLife();
