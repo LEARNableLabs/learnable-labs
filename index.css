@@ -488,6 +488,31 @@ footer {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   CTA BUTTON
+   ═══════════════════════════════════════════════════════════════════════════ */
+.cta-btn {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 32px;
+  background: var(--accent);
+  color: var(--bg-light);
+  text-decoration: none;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  opacity: 0;
+}
+
+.cta-btn:hover {
+  background: #7d6b4a;
+}
+
+.cta-btn.visible {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    ANIMATIONS
    ═══════════════════════════════════════════════════════════════════════════ */
 .reveal {
