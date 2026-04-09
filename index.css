@@ -47,7 +47,6 @@ body {
 .page {
   position: relative;
   z-index: 1;
-  margin-left: 280px;
   padding-bottom: 80px;
   transition: margin-left 0.3s ease;
 }
@@ -204,7 +203,7 @@ body {
   transition: left 0.3s ease;
 }
 
-.controls:not(.collapsed) ~ .toggle-btn {
+body.playground .controls:not(.collapsed) ~ .toggle-btn {
   left: 292px;
 }
 
@@ -349,7 +348,33 @@ body.fullpage .fullpage-btn {
   transform: translateY(0);
 }
 
-.site-nav a:not(.brand)::after {
+.site-nav .source-link {
+  margin-left: auto;
+  font-size: 14px;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: all 0.4s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.site-nav .source-link.visible {
+  opacity: 0.7;
+  transform: translateY(0);
+}
+
+.site-nav .source-link:hover {
+  opacity: 1;
+}
+
+p.body.mission {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.87;
+  line-height: 1.6;
+}
+
+.site-nav a:not(.brand):not(.source-link)::after {
   content: '';
   position: absolute;
   bottom: -3px;
@@ -457,11 +482,14 @@ p.body {
 }
 
 .card {
+  display: block;
+  text-decoration: none;
   background: rgba(42, 42, 42, 0.03);
   border: 1px solid rgba(107, 91, 62, 0.1);
   border-radius: 8px;
   padding: 28px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -489,6 +517,31 @@ footer {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   CTA BUTTON
+   ═══════════════════════════════════════════════════════════════════════════ */
+.cta-btn {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 32px;
+  background: var(--accent);
+  color: var(--bg-light);
+  text-decoration: none;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  opacity: 0;
+}
+
+.cta-btn:hover {
+  background: #7d6b4a;
+}
+
+.cta-btn.visible {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    ANIMATIONS
    ═══════════════════════════════════════════════════════════════════════════ */
 .reveal {
@@ -497,4 +550,80 @@ footer {
 
 .reveal.visible {
   opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LANDING PAGE MODE (default)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.controls,
+.prompt-bar,
+.toggle-btn,
+.fullpage-btn {
+  display: none;
+}
+
+.page {
+  margin-left: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PLAYGROUND MODE (activated via Ctrl+. / Cmd+.)
+   ═══════════════════════════════════════════════════════════════════════════ */
+body.playground .controls {
+  display: block;
+}
+
+body.playground .prompt-bar {
+  display: flex;
+}
+
+body.playground .toggle-btn,
+body.playground .fullpage-btn {
+  display: block;
+}
+
+body.playground .page {
+  margin-left: 280px;
+}
+
+body.playground .controls.collapsed ~ .page {
+  margin-left: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE (basic responsiveness)
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .site-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 14px 20px;
+    gap: 12px;
+  }
+
+  .site-nav .brand {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  section {
+    padding: 24px 20px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-btn {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
 }

@@ -8,7 +8,7 @@ The core insight from FRL: they render a 3D torus on a **2D canvas** using param
 
 ## What We Built
 
-**File:** `animation-playground.html` — a single self-contained HTML file with inline CSS/JS.
+**Files:** `index.html`, `index.css`, `index.js` — vanilla web app with no build step.
 
 ### 3D Shape Visualizations
 
