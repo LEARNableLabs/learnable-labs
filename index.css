@@ -482,11 +482,14 @@ p.body {
 }
 
 .card {
+  display: block;
+  text-decoration: none;
   background: rgba(42, 42, 42, 0.03);
   border: 1px solid rgba(107, 91, 62, 0.1);
   border-radius: 8px;
   padding: 28px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .card:hover {
