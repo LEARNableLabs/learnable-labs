@@ -1,8 +1,14 @@
+<p align="center">
+  <img src="assets/logo.png" alt="LEARNable Labs" width="300">
+</p>
+
 # LEARNable Labs
 
 Landing page and interactive visualization playground for [LEARNable Labs](https://github.com/LEARNableLabs) — an ed-tech venture building **OpenTutor**, an open-source AI learning companion.
 
 **Mission:** Educate one billion scientists and engineers at 1% of the cost of today's best education.
+
+**Website:** [learnablelabs.github.io/learnable-labs](https://learnablelabs.github.io/learnable-labs/)
 
 ## Quick Start
 
