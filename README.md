@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo_round.png" alt="LEARNable Labs" width="200">
+  <img src="assets/logo_rounded.png" alt="LEARNable Labs" width="300">
 </p>
 
 # LEARNable Labs
