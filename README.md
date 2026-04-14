@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="assets/logo.png" alt="LEARNable Labs" width="300">
+  <img src="assets/logo_more.png" alt="LEARNable Labs" width="300">
 </p>
 
 # LEARNable Labs
 
-Landing page and interactive visualization playground for [LEARNable Labs](https://github.com/LEARNableLabs) — an ed-tech venture building **OpenTutor**, an open-source AI learning companion.
+Landing page for [LEARNable Labs](https://github.com/LEARNableLabs) — an ed-tech venture building **OpenTutor**, an open-source AI learning companion.
 
 **Mission:** Educate one billion scientists and engineers at 1% of the cost of today's best education.
 
@@ -37,7 +37,7 @@ A single-page site with:
 index.html   — page structure (nav, hero, content sections, controls, prompt bar)
 index.css    — styling with CSS custom properties, dark panel, warm academic aesthetic
 index.js     — all logic in a single IIFE (shape renderer, CA simulator, particles, scroll reveal, UI)
-LEARNABLE.md — detailed technical design doc and project notes
+docs/          — technical design docs and project notes
 ```
 
 ## Tech Stack
