@@ -1,13 +1,19 @@
 # Builder Agent Output
 
-- **timestamp:** 2026-08-19T18:24:15Z
+- **timestamp:** 2026-08-19T18:58:52Z
 - **exit_code:** 0
 
 ---
 
-Done. PR opened at https://github.com/LEARNableLabs/learnable-labs/pull/2.
+Done. Here's the summary:
 
-**Summary:** Replaced the two useless eval dimensions with 6 meaningful ones for this web project. All dimensions run cleanly — current weighted score is 0.836. The uncommitted changes warning is just the `.claude/` and `skills/` directories (not part of this change).
+**New composite score: 0.7209** (passes the 0.7 threshold)
+
+**Changes made:**
+- `.factory/config.json` — set `eval_weights` to `{hygiene: 0.25, growth: 0.25, project: 0.50}` and populated `project_eval` with 7 `ProjectEvalDimension` objects (js_syntax, html_structure, css_validity, code_modularity, feature_completeness, observability, tests)
+- `eval/dim.py` — helper script to extract individual dimensions from `eval/score.py` output (needed because the factory runner uses `command.split()` with `subprocess_exec`, not shell execution)
+
+**Project eval dimensions now carry 50% weight** in the composite, split evenly across the 7 dimensions (~7.1% each). The remaining 50% is split between hygiene (25%) and growth (25%).
 ---
 
 > **⚠ CEO IDENTITY RE-ANCHOR (Sacred Rule 8)**

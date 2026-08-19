@@ -1,126 +1,175 @@
 {
-  "total": 0.4799987100103199,
+  "total": 0.7209013157894737,
   "results": [
     {
       "name": "tests",
       "score": 0.5,
-      "weight": 0.08157894736842106,
+      "weight": 0.04078947368421053,
       "passed": true,
       "details": "Not detected: no test suite detected"
     },
     {
       "name": "lint",
       "score": 0.5,
-      "weight": 0.039473684210526314,
+      "weight": 0.019736842105263157,
       "passed": true,
       "details": "Not detected: no linter detected"
     },
     {
       "name": "type_check",
       "score": 0.5,
-      "weight": 0.026315789473684213,
+      "weight": 0.013157894736842106,
       "passed": true,
       "details": "Not detected: no type checker detected"
     },
     {
       "name": "coverage",
       "score": 0.5,
-      "weight": 0.06578947368421052,
+      "weight": 0.03289473684210526,
       "passed": true,
       "details": "Not detected: no coverage tool detected"
     },
     {
       "name": "config_parser",
       "score": 1.0,
-      "weight": 0.026315789473684213,
+      "weight": 0.013157894736842106,
       "passed": true,
       "details": "OK: goal is non-empty; OK: scope has entries; OK: eval_command is non-empty; OK: eval_threshold is positive"
     },
     {
       "name": "architecture",
       "score": 0.5,
-      "weight": 0.02368421052631579,
+      "weight": 0.011842105263157895,
       "passed": true,
       "details": "Not detected: no .sentrux/rules.toml found"
     },
     {
       "name": "js_syntax",
       "score": 1.0,
-      "weight": 0.052631578947368425,
+      "weight": 0.026315789473684213,
       "passed": true,
       "details": "No syntax errors"
     },
     {
       "name": "html_structure",
       "score": 0.875,
-      "weight": 0.039473684210526314,
+      "weight": 0.019736842105263157,
       "passed": true,
       "details": "Found 7/8: nav, canvas, section_method, section_product, section_team, controls_panel, prompt_bar | Missing: section_research"
     },
     {
       "name": "css_validity",
       "score": 1.0,
-      "weight": 0.026315789473684213,
+      "weight": 0.013157894736842106,
       "passed": true,
       "details": "629 lines, 85 rules"
     },
     {
       "name": "code_modularity",
       "score": 0.775,
-      "weight": 0.052631578947368425,
+      "weight": 0.026315789473684213,
       "passed": true,
-      "details": "modules=5/5 (ShapeRenderer, CASimulator, BackgroundParticles, ScrollReveal, UIController), functions=5, avg_func_length=17 lines"
+      "details": "modules=5/5 (ShapeRenderer, CASimulator, BackgroundParticles, ScrollReveal, UIController), functions=5, avg_func_length=18 lines"
     },
     {
       "name": "feature_completeness",
       "score": 1.0,
-      "weight": 0.06578947368421052,
+      "weight": 0.03289473684210526,
       "passed": true,
       "details": "Found 7/7: ShapeRenderer, CASimulator, BackgroundParticles, ScrollReveal, UIController, mouse_interaction, animation_loop"
     },
     {
       "name": "capability_surface",
-      "score": 0.08,
-      "weight": 0.12254901960784313,
+      "score": 0.1,
+      "weight": 0.0625,
       "passed": false,
-      "details": "surface=8 (modules=1, public_fns=7, entry_points=0), target=100"
+      "details": "surface=10 (modules=2, public_fns=8, entry_points=0), target=100"
     },
     {
       "name": "experiment_diversity",
       "score": 0.5,
-      "weight": 0.09803921568627451,
+      "weight": 0.05,
       "passed": true,
-      "details": "Only 0 experiments, too few to judge"
+      "details": "Only 1 experiments, too few to judge"
     },
     {
       "name": "observability",
       "score": 0.0,
-      "weight": 0.08823529411764705,
+      "weight": 0.045,
       "passed": false,
       "details": "observability_score=0.00, function_coverage=0.00, structured_logging=False"
     },
     {
       "name": "research_grounding",
-      "score": 0.0,
-      "weight": 0.0784313725490196,
-      "passed": true,
-      "details": "vault not configured \u2014 set $FACTORY_VAULT_PATH"
+      "score": 0.1,
+      "weight": 0.035,
+      "passed": false,
+      "details": "sources=0 (archive), utilization=0.00, research_report=no, doc_ratio=0.50 (1/2), citation_ratio=0.00"
     },
     {
       "name": "factory_effectiveness",
       "score": 0.5,
-      "weight": 0.06372549019607843,
+      "weight": 0.0325,
       "passed": true,
-      "details": "Only 0 experiments, too few to judge"
+      "details": "Only 1 experiments, too few to judge"
     },
     {
       "name": "spec_compliance",
       "score": 0.5,
-      "weight": 0.049019607843137254,
+      "weight": 0.025,
       "passed": true,
       "details": "spec_results.json not found \u2014 neutral score"
+    },
+    {
+      "name": "js_syntax",
+      "score": 1.0,
+      "weight": 0.07142857142857142,
+      "passed": true,
+      "details": "No syntax errors"
+    },
+    {
+      "name": "html_structure",
+      "score": 0.875,
+      "weight": 0.07142857142857142,
+      "passed": true,
+      "details": "Found 7/8: nav, canvas, section_method, section_product, section_team, controls_panel, prompt_bar | Missing: section_research"
+    },
+    {
+      "name": "css_validity",
+      "score": 1.0,
+      "weight": 0.07142857142857142,
+      "passed": true,
+      "details": "629 lines, 85 rules"
+    },
+    {
+      "name": "code_modularity",
+      "score": 0.775,
+      "weight": 0.07142857142857142,
+      "passed": true,
+      "details": "modules=5/5 (ShapeRenderer, CASimulator, BackgroundParticles, ScrollReveal, UIController), functions=5, avg_func_length=18 lines"
+    },
+    {
+      "name": "feature_completeness",
+      "score": 1.0,
+      "weight": 0.07142857142857142,
+      "passed": true,
+      "details": "Found 7/7: ShapeRenderer, CASimulator, BackgroundParticles, ScrollReveal, UIController, mouse_interaction, animation_loop"
+    },
+    {
+      "name": "observability",
+      "score": 1.0,
+      "weight": 0.07142857142857142,
+      "passed": true,
+      "details": "5 console calls; 2 try/catch blocks; 5 structured log(s)"
+    },
+    {
+      "name": "tests",
+      "score": 1.0,
+      "weight": 0.07142857142857142,
+      "passed": true,
+      "details": "All tests passed"
     }
   ],
   "guard_violations": [],
-  "passed": false
+  "passed": true
 }

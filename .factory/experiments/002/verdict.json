@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "timestamp": "2026-08-19 15:03:33.053385",
+  "hypothesis": "H2: Add CLI-runnable unit test suite using Node.js built-in test runner",
+  "change_summary": "",
+  "issue_number": null,
+  "pr_number": 2,
+  "score_before": null,
+  "score_after": null,
+  "delta": null,
+  "verdict": "revert",
+  "cost_usd": 5.618229599999999,
+  "notes": "[OVERRIDDEN by finalize gate] precheck failed: score_direction. ceo:keep composite_delta=+0.2409 score_before=0.48 score_after=0.7209 tests_added=32 tests_pass=32 qa_iterations=1 qa_result=ALL_PASS code_review=CLEAN adversarial=PASS config_fix_required=true",
+  "research_citations": []
+}

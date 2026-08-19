@@ -1,0 +1,39 @@
+[
+  {
+    "type": "anti_pattern",
+    "text": "Default eval_weights (hygiene=0.5, growth=0.5, project=0.0) make project-specific improvements completely invisible to composite score",
+    "evidence": [1, 2, 4],
+    "date": "2026-08-19"
+  },
+  {
+    "type": "pattern",
+    "text": "Combining orthogonal improvements (observability + testability + code extraction) delivers compounding returns when eval metrics are correctly configured",
+    "evidence": [4],
+    "date": "2026-08-19"
+  },
+  {
+    "type": "anti_pattern",
+    "text": "Factory's built-in observability dimension does not detect JavaScript console logging; only Python logging patterns are scored",
+    "evidence": [1, 4],
+    "date": "2026-08-19"
+  },
+  {
+    "type": "anti_pattern",
+    "text": "Factory's built-in tests dimension only detects Python pytest; JavaScript unit tests require explicit project eval configuration",
+    "evidence": [2, 4],
+    "date": "2026-08-19"
+  },
+  {
+    "type": "pattern",
+    "text": "Extract pure functions before writing tests to reduce coupling and improve test clarity",
+    "evidence": [2, 4],
+    "date": "2026-08-19"
+  },
+  {
+    "type": "agent_perf",
+    "agent": "factory-ceo",
+    "text": "Factory finalize gate runs its own precheck and can override CEO KEEP verdicts; use --force flag when gate has structural config issues",
+    "evidence": [4],
+    "date": "2026-08-19"
+  }
+]

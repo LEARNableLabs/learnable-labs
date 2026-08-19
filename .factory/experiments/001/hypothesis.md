@@ -1,0 +1,1 @@
+H1: Add global error handlers and structured logging to all modules — Logger module with 5 log levels, window.onerror + unhandledrejection handlers, try/catch in requestAnimationFrame callbacks, structured logging in all 5 modules

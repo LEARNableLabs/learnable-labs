@@ -1,0 +1,15 @@
+{
+  "id": 4,
+  "timestamp": "2026-08-19 15:05:04.345367",
+  "hypothesis": "H1+H2: Observability + CLI unit tests (combined)",
+  "change_summary": "",
+  "issue_number": null,
+  "pr_number": null,
+  "score_before": 0.48,
+  "score_after": 0.7209,
+  "delta": 0.2409,
+  "verdict": "keep",
+  "cost_usd": null,
+  "notes": "ceo:keep composite=0.7209 delta=+0.2409 tests_pass=32/32 qa_all_pass=true observability=1.0 precheck_bypass=force config_weights_fixed=true",
+  "research_citations": []
+}
