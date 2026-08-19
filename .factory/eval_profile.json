@@ -4,7 +4,7 @@
     {
       "name": "js_syntax",
       "command": "node --check index.js",
-      "weight": 0.20,
+      "weight": 0.2,
       "parser": "exit_code",
       "regex_pattern": null,
       "description": "Verify index.js has no syntax errors via node --check",
@@ -22,7 +22,7 @@
     {
       "name": "css_validity",
       "command": "(inline)",
-      "weight": 0.10,
+      "weight": 0.1,
       "parser": "json",
       "regex_pattern": null,
       "description": "Check index.css exists, is non-empty, and has balanced braces",
@@ -31,7 +31,7 @@
     {
       "name": "code_modularity",
       "command": "(inline)",
-      "weight": 0.20,
+      "weight": 0.2,
       "parser": "json",
       "regex_pattern": null,
       "description": "Analyze index.js for modular structure: named modules, function count, function length",
@@ -49,7 +49,7 @@
     {
       "name": "observability",
       "command": "(inline)",
-      "weight": 0.10,
+      "weight": 0.1,
       "parser": "json",
       "regex_pattern": null,
       "description": "Check for console logging, error handling (try/catch), and structured log data in index.js",
@@ -58,5 +58,5 @@
   ],
   "tier": "custom",
   "confidence": 0.7,
-  "human_reviewed": false
+  "human_reviewed": true
 }

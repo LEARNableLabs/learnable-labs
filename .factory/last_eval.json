@@ -1,0 +1,126 @@
+{
+  "total": 0.4799987100103199,
+  "results": [
+    {
+      "name": "tests",
+      "score": 0.5,
+      "weight": 0.08157894736842106,
+      "passed": true,
+      "details": "Not detected: no test suite detected"
+    },
+    {
+      "name": "lint",
+      "score": 0.5,
+      "weight": 0.039473684210526314,
+      "passed": true,
+      "details": "Not detected: no linter detected"
+    },
+    {
+      "name": "type_check",
+      "score": 0.5,
+      "weight": 0.026315789473684213,
+      "passed": true,
+      "details": "Not detected: no type checker detected"
+    },
+    {
+      "name": "coverage",
+      "score": 0.5,
+      "weight": 0.06578947368421052,
+      "passed": true,
+      "details": "Not detected: no coverage tool detected"
+    },
+    {
+      "name": "config_parser",
+      "score": 1.0,
+      "weight": 0.026315789473684213,
+      "passed": true,
+      "details": "OK: goal is non-empty; OK: scope has entries; OK: eval_command is non-empty; OK: eval_threshold is positive"
+    },
+    {
+      "name": "architecture",
+      "score": 0.5,
+      "weight": 0.02368421052631579,
+      "passed": true,
+      "details": "Not detected: no .sentrux/rules.toml found"
+    },
+    {
+      "name": "js_syntax",
+      "score": 1.0,
+      "weight": 0.052631578947368425,
+      "passed": true,
+      "details": "No syntax errors"
+    },
+    {
+      "name": "html_structure",
+      "score": 0.875,
+      "weight": 0.039473684210526314,
+      "passed": true,
+      "details": "Found 7/8: nav, canvas, section_method, section_product, section_team, controls_panel, prompt_bar | Missing: section_research"
+    },
+    {
+      "name": "css_validity",
+      "score": 1.0,
+      "weight": 0.026315789473684213,
+      "passed": true,
+      "details": "629 lines, 85 rules"
+    },
+    {
+      "name": "code_modularity",
+      "score": 0.775,
+      "weight": 0.052631578947368425,
+      "passed": true,
+      "details": "modules=5/5 (ShapeRenderer, CASimulator, BackgroundParticles, ScrollReveal, UIController), functions=5, avg_func_length=17 lines"
+    },
+    {
+      "name": "feature_completeness",
+      "score": 1.0,
+      "weight": 0.06578947368421052,
+      "passed": true,
+      "details": "Found 7/7: ShapeRenderer, CASimulator, BackgroundParticles, ScrollReveal, UIController, mouse_interaction, animation_loop"
+    },
+    {
+      "name": "capability_surface",
+      "score": 0.08,
+      "weight": 0.12254901960784313,
+      "passed": false,
+      "details": "surface=8 (modules=1, public_fns=7, entry_points=0), target=100"
+    },
+    {
+      "name": "experiment_diversity",
+      "score": 0.5,
+      "weight": 0.09803921568627451,
+      "passed": true,
+      "details": "Only 0 experiments, too few to judge"
+    },
+    {
+      "name": "observability",
+      "score": 0.0,
+      "weight": 0.08823529411764705,
+      "passed": false,
+      "details": "observability_score=0.00, function_coverage=0.00, structured_logging=False"
+    },
+    {
+      "name": "research_grounding",
+      "score": 0.0,
+      "weight": 0.0784313725490196,
+      "passed": true,
+      "details": "vault not configured \u2014 set $FACTORY_VAULT_PATH"
+    },
+    {
+      "name": "factory_effectiveness",
+      "score": 0.5,
+      "weight": 0.06372549019607843,
+      "passed": true,
+      "details": "Only 0 experiments, too few to judge"
+    },
+    {
+      "name": "spec_compliance",
+      "score": 0.5,
+      "weight": 0.049019607843137254,
+      "passed": true,
+      "details": "spec_results.json not found \u2014 neutral score"
+    }
+  ],
+  "guard_violations": [],
+  "passed": false
+}
