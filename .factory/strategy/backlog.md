@@ -1,3 +1,0 @@
-- Add user-facing error recovery UI: canvas overlay with error state, reset button, and graceful fallbacks for ShapeRenderer and CASimulator failures. Target: capability_surface dimension.
-- Add ESLint configuration: .eslintrc.json for browser env + ES6, run via npx eslint index.js lib/core.js. Target: lint dimension.
-- Fix rAF error recovery: re-schedule requestAnimationFrame after catch in ShapeRenderer.draw and BackgroundParticles.animate, with circuit breaker to prevent infinite error loops.

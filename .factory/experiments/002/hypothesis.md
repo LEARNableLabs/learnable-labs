@@ -1,1 +1,0 @@
-H2: Add CLI-runnable unit test suite using Node.js built-in test runner — extract pure math/logic into lib/core.js, write tests via node --test, update eval to detect tests

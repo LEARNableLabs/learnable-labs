@@ -1,4 +1,0 @@
-[
-  "Start the service and confirm the health endpoint returns 200",
-  "Send a sample request to the primary API endpoint and verify the response schema"
-]
