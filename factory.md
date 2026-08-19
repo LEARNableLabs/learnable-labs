@@ -55,11 +55,20 @@ python3 eval/score.py
 main
 
 ## Project Eval
-<!-- Project-specific eval dimensions are defined in .factory/eval_profile.json -->
-<!-- 6 dimensions: js_syntax, html_structure, css_validity, code_modularity, feature_completeness, observability -->
+
+js_syntax
+html_structure
+css_validity
+code_modularity
+feature_completeness
+observability
+tests
 
 ## Eval Weights
-<!-- Using defaults: 50/50 hygiene/growth (no project eval override) -->
+
+hygiene: 0.25
+growth: 0.25
+project: 0.50
 
 ## Hypothesis Budget
 <!-- Controls how many hypotheses the Strategist generates per cycle. -->
