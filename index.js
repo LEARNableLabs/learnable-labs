@@ -6,6 +6,29 @@
 'use strict';
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   LOGGER & ERROR HANDLERS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+const Logger = {
+  _context: {},
+  setContext(ctx) { Object.assign(this._context, ctx); },
+  _ts() { return new Date().toISOString(); },
+  debug(data) { console.log('[DEBUG]', { ts: this._ts(), level: 'debug', ctx: this._context, data: data }); },
+  info(data) { console.log('[INFO]', { ts: this._ts(), level: 'info', ctx: this._context, data: data }); },
+  warn(data) { console.warn('[WARN]', { ts: this._ts(), level: 'warn', ctx: this._context, data: data }); },
+  error(data) { console.error('[ERROR]', { ts: this._ts(), level: 'error', ctx: this._context, data: data }); },
+  fatal(data) { console.error('[FATAL]', { ts: this._ts(), level: 'fatal', ctx: this._context, data: data }); }
+};
+
+window.addEventListener('error', function(e) {
+  Logger.error({ type: 'uncaught_error', message: e.message, source: e.filename, line: e.lineno, column: e.colno, stack: e.error && e.error.stack });
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+  Logger.error({ type: 'unhandled_rejection', reason: String(e.reason) });
+});
+
+/* ═══════════════════════════════════════════════════════════════════════════
    CONFIGURATION & CONSTANTS
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -268,6 +291,7 @@ const ShapeRenderer = {
 
   initPoints() {
     const shape = getVal('s-shape');
+    Logger.info({ module: 'ShapeRenderer', event: 'shape_switch', shape: shape });
     if (shape === 'diverge') {
       state.divergeBaseShape = GEOMETRIC_SHAPES[Math.floor(Math.random() * GEOMETRIC_SHAPES.length)];
     }
@@ -497,6 +521,7 @@ const ShapeRenderer = {
   },
 
   draw() {
+    try {
     const w = this.canvas.width;
     const h = this.canvas.height;
     const cx = w / 2;
@@ -599,6 +624,9 @@ const ShapeRenderer = {
 
     this.drawPoints(rendered, repelStrength, glowSize);
     state.shapeAnimId = requestAnimationFrame(() => this.draw());
+    } catch (err) {
+      Logger.error({ module: 'ShapeRenderer', event: 'render_error', error: err.message, stack: err.stack });
+    }
   }
 };
 
@@ -609,6 +637,7 @@ const ShapeRenderer = {
 const CASimulator = {
   initLife() {
     const gs = getVal('r-gridsize');
+    Logger.info({ module: 'CASimulator', event: 'life_init', gridSize: gs });
     state.lifeGrid = [];
     state.lifeGeneration = 0;
     state.lifeTickCounter = 0;
@@ -657,6 +686,7 @@ const CASimulator = {
 
   initWolfram() {
     const ww = getVal('r-wolframw');
+    Logger.info({ module: 'CASimulator', event: 'wolfram_init', width: ww });
     state.wolframRows = [];
     state.wolframTickCounter = 0;
     const first = [];
@@ -708,6 +738,7 @@ const BackgroundParticles = {
     this.ctx = this.canvas.getContext('2d');
     this.resize();
     window.addEventListener('resize', () => this.resize());
+    Logger.info({ module: 'BackgroundParticles', event: 'init', width: this.canvas.width, height: this.canvas.height });
   },
 
   resize() {
@@ -738,6 +769,7 @@ const BackgroundParticles = {
   },
 
   animate() {
+    try {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     for (let i = 0; i < this.particles.length; i++) {
@@ -772,6 +804,9 @@ const BackgroundParticles = {
     }
 
     state.bgAnimId = requestAnimationFrame(() => this.animate());
+    } catch (err) {
+      Logger.error({ module: 'BackgroundParticles', event: 'animation_error', error: err.message, stack: err.stack });
+    }
   }
 };
 
@@ -782,10 +817,12 @@ const BackgroundParticles = {
 const ScrollReveal = {
   setupObserver() {
     const thresh = getVal('r-thresh');
+    Logger.info({ module: 'ScrollReveal', event: 'observer_setup', threshold: thresh });
     if (state.observer) state.observer.disconnect();
     state.observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          Logger.debug({ module: 'ScrollReveal', event: 'reveal', target: entry.target.className });
           entry.target.classList.add('visible');
           state.observer.unobserve(entry.target);
         }
@@ -889,6 +926,7 @@ const UIController = {
           const unit = slider.dataset.unit || '';
           valEl.textContent = slider.value + unit;
         }
+        Logger.debug({ module: 'UIController', event: 'control_update', control: id, value: slider.value });
         this.applyStyles();
         this.updatePrompt();
       });
@@ -986,6 +1024,7 @@ const UIController = {
         const name = btn.dataset.preset;
         const preset = PRESETS[name];
         if (!preset) return;
+        Logger.info({ module: 'UIController', event: 'preset_change', preset: name });
 
         Object.keys(preset).forEach(key => {
           if (key !== 'easing') {
@@ -1100,6 +1139,11 @@ function init() {
   window.scrollTo(0, 0);
   generateControls();
   ShapeRenderer.init();
+  Logger.setContext({
+    userAgent: navigator.userAgent,
+    screen: { width: screen.width, height: screen.height },
+    canvas: { width: ShapeRenderer.canvas.width, height: ShapeRenderer.canvas.height }
+  });
   CASimulator.initLife();
   CASimulator.initWolfram();
   BackgroundParticles.init();
