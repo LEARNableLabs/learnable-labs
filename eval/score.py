@@ -256,6 +256,47 @@ def eval_observability() -> dict:
             "passed": score >= 0.25, "details": "; ".join(findings)}
 
 
+def eval_tests() -> dict:
+    """Run CLI unit tests via node --test tests/ and check results."""
+    name = "tests"
+    weight = 0.15
+    tests_dir = Path("tests")
+    if not tests_dir.exists() or not list(tests_dir.glob("*.test.js")):
+        return {"name": name, "score": 0.0, "weight": weight, "passed": False,
+                "details": "No test files found in tests/"}
+    try:
+        result = subprocess.run(
+            ["node", "--test"],
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        passed = result.returncode == 0
+        if passed:
+            score = 1.0
+            details = "All tests passed"
+        else:
+            output = (result.stdout + result.stderr).strip()
+            pass_match = re.search(r"# pass (\d+)", output)
+            fail_match = re.search(r"# fail (\d+)", output)
+            if pass_match and fail_match:
+                p = int(pass_match.group(1))
+                f = int(fail_match.group(1))
+                total = p + f
+                score = round(p / total, 3) if total > 0 else 0.0
+                details = f"{p}/{total} tests passed"
+            else:
+                score = 0.0
+                details = output[:500] if output else "Tests failed (no output)"
+        return {"name": name, "score": score, "weight": weight, "passed": passed, "details": details}
+    except FileNotFoundError:
+        return {"name": name, "score": 0.0, "weight": weight, "passed": False,
+                "details": "node not found on PATH"}
+    except subprocess.TimeoutExpired:
+        return {"name": name, "score": 0.0, "weight": weight, "passed": False,
+                "details": "Timed out after 60s"}
+
+
 EVALS = [
     eval_js_syntax,
     eval_html_structure,
@@ -263,6 +304,7 @@ EVALS = [
     eval_code_modularity,
     eval_feature_completeness,
     eval_observability,
+    eval_tests,
 ]
 
 

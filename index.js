@@ -327,29 +327,10 @@ const ShapeRenderer = {
     const count = state.shapePoints.length;
 
     switch (shape) {
-      case 'torus': {
-        const u = t * Math.PI * 2;
-        const v = (idx % 20) / 20 * Math.PI * 2 + 0.001 * frame * rotSpeed;
-        return {
-          x: cx + (majorR + minorR * Math.cos(v)) * Math.cos(u),
-          y: cy + (majorR + minorR * Math.cos(v)) * Math.sin(u),
-          z: minorR * Math.sin(v)
-        };
-      }
-      case 'sphere': {
-        const golden = (1 + Math.sqrt(5)) / 2;
-        const phi = 2 * Math.PI * idx / golden + 0.0005 * frame * rotSpeed;
-        const theta = Math.acos(1 - 2 * t);
-        const sx = majorR * Math.sin(theta) * Math.cos(phi);
-        const sy = majorR * Math.sin(theta) * Math.sin(phi);
-        const sz = majorR * Math.cos(theta);
-        const rot = 0.001 * frame * rotSpeed;
-        return {
-          x: cx + sx * Math.cos(rot) - sz * Math.sin(rot),
-          y: cy + sy,
-          z: sx * Math.sin(rot) + sz * Math.cos(rot)
-        };
-      }
+      case 'torus':
+        return Core.torusPoint(t, idx, majorR, minorR, rotSpeed, frame, cx, cy);
+      case 'sphere':
+        return Core.spherePoint(t, idx, majorR, rotSpeed, frame, cx, cy);
       case 'circle': {
         const r = majorR + 15 * Math.sin(frame * 0.001 + idx);
         const a = t * Math.PI * 2;
@@ -375,17 +356,8 @@ const ShapeRenderer = {
         const rz = px * Math.sin(rot) + pz * Math.cos(rot);
         return { x: cx + rx, y: cy + py, z: rz };
       }
-      case 'helix': {
-        const turns = 4;
-        const angle = t * turns * Math.PI * 2 + 0.001 * frame * rotSpeed;
-        const helixY = (t - 0.5) * majorR * 2;
-        const helixR = minorR * 1.5;
-        return {
-          x: cx + Math.cos(angle) * helixR,
-          y: cy + helixY,
-          z: Math.sin(angle) * helixR
-        };
-      }
+      case 'helix':
+        return Core.helixPoint(t, majorR, minorR, rotSpeed, frame, cx, cy);
       case 'lorenz': {
         const sigma = 10, rho = 28, beta = 8/3;
         const dt = 0.002 * rotSpeed;
@@ -560,7 +532,7 @@ const ShapeRenderer = {
             const rpx = px * Math.cos(rot) - tpz * Math.sin(rot);
             const rpz = px * Math.sin(rot) + tpz * Math.cos(rot);
 
-            const persp = 800 / (800 + rpz);
+            const persp = Core.perspectiveScale(800, rpz);
             const screenX = cx + rpx * persp;
             const screenY = cy + tpy * persp;
 
@@ -592,7 +564,7 @@ const ShapeRenderer = {
             const px = Math.cos(angle) * cylRadius;
             const pz = Math.sin(angle) * cylRadius;
 
-            const persp = 800 / (800 + pz);
+            const persp = Core.perspectiveScale(800, pz);
             const screenX = cx + px * persp;
             const screenY = cy + rowY * persp;
 
@@ -614,7 +586,7 @@ const ShapeRenderer = {
     for (let i = 0; i < state.shapePoints.length; i++) {
       const p = state.shapePoints[i];
       const pos = this.getPosition(p, shape, state.frameCount, cx, cy);
-      const perspective = 800 / (800 + pos.z);
+      const perspective = Core.perspectiveScale(800, pos.z);
       const sx = cx + (pos.x - cx) * perspective;
       const sy = cy + (pos.y - cy) * perspective;
       const depthNorm = (pos.z + 300) / 600;
@@ -655,15 +627,7 @@ const CASimulator = {
     for (let y = 0; y < gs; y++) {
       next[y] = [];
       for (let x = 0; x < gs; x++) {
-        let neighbors = 0;
-        for (let dy = -1; dy <= 1; dy++) {
-          for (let dx = -1; dx <= 1; dx++) {
-            if (dx === 0 && dy === 0) continue;
-            const ny = (y + dy + gs) % gs;
-            const nx = (x + dx + gs) % gs;
-            if (state.lifeGrid[ny] && state.lifeGrid[ny][nx]) neighbors++;
-          }
-        }
+        const neighbors = Core.countLifeNeighbors(state.lifeGrid, x, y, gs);
         if (state.lifeGrid[y] && state.lifeGrid[y][x]) {
           next[y][x] = (neighbors === 2 || neighbors === 3) ? 1 : 0;
         } else {
@@ -705,8 +669,7 @@ const CASimulator = {
       const left = prev[(i - 1 + ww) % ww];
       const center = prev[i];
       const right = prev[(i + 1) % ww];
-      const pattern = (left << 2) | (center << 1) | right;
-      next[i] = (rule >> pattern) & 1;
+      next[i] = Core.applyWolframRule(left, center, right, rule);
     }
     state.wolframRows.push(next);
     if (state.wolframRows.length > maxRows) {

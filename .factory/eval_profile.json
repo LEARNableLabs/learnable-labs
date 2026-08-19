@@ -54,6 +54,15 @@
       "regex_pattern": null,
       "description": "Check for console logging, error handling (try/catch), and structured log data in index.js",
       "source": "custom"
+    },
+    {
+      "name": "tests",
+      "command": "node --test",
+      "weight": 0.15,
+      "parser": "exit_code",
+      "regex_pattern": null,
+      "description": "Run CLI unit tests via Node.js built-in test runner",
+      "source": "custom"
     }
   ],
   "tier": "custom",
