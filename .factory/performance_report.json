@@ -1,0 +1,327 @@
+{
+  "project_name": "run-a221889d",
+  "generated_at": "2026-08-19 15:07:13.953032",
+  "total_experiments": 4,
+  "keep_count": 1,
+  "revert_count": 3,
+  "error_count": 0,
+  "keep_rate": 0.25,
+  "latest_score": 0.7209,
+  "agent_verdicts": [
+    {
+      "role": "build",
+      "verdict": "PROCEED",
+      "rationale": "Implementation matches the hypothesis precisely. The diff shows:",
+      "issues": [
+        "None \u2014 implementation is exactly what was specified",
+        "**Instructions for next step:** Proceed to deep-QA pipeline (health check + code review + adversarial test) in parallel."
+      ],
+      "experiment_id": null
+    },
+    {
+      "role": "discover",
+      "verdict": "PROCEED",
+      "rationale": "The auto-discovery produced a fallback-tier profile (confidence=0.2) with only 2 dimensions. This is expected for a vanilla HTML/CSS/JS project with no build tools, no test framework, and no linter. The project was misdetected as language=unknown, project_type=service. Key issues:",
+      "issues": [
+        "Language detection failed (vanilla HTML/CSS/JS detected as \"unknown\")",
+        "Project type misclassified as \"service\" (should be \"static-site\" or \"web-app\")",
+        "Eval dimensions are not relevant to the actual tech stack",
+        "**Instructions for next step:** Proceed to Review mode. The eval profile needs significant improvement during review \u2014 the current profile provides zero meaningful signal. Review mode should detect these gaps and generate proper dimensions for a vanilla JS web project."
+      ],
+      "experiment_id": null
+    },
+    {
+      "role": "doc-freshness",
+      "verdict": "PROCEED",
+      "rationale": "H2 extracted pure functions to lib/core.js and added tests. No public APIs, CLI commands, or user-facing configuration changed. The lib/core.js module is an internal implementation detail consumed by index.js. The test suite is a developer tool. No documentation updates required.",
+      "issues": [],
+      "experiment_id": null
+    },
+    {
+      "role": "e2e",
+      "verdict": "PROCEED",
+      "rationale": "End-to-end verification passed. The project is a static vanilla HTML/CSS/JS web app with no server component:",
+      "issues": [
+        "none",
+        "**Instructions for next step:** Review mode complete. Transition to Improve mode for first experiment cycle. Key improvement opportunities:",
+        "1. observability (0.0) \u2014 add console logging, try/catch, structured data",
+        "2. capability_surface (0.08) \u2014 add new features/entry points",
+        "3. tests/lint/type_check (all 0.5 \"not detected\") \u2014 add test framework, linter"
+      ],
+      "experiment_id": null
+    },
+    {
+      "role": "eval",
+      "verdict": "PROCEED",
+      "rationale": "All 6 dimensions produce valid, meaningful scores for this vanilla HTML/CSS/JS project. The composite signal is now actionable:",
+      "issues": [
+        "code_modularity only detects 5 named functions (the IIFE pattern likely hides many method definitions from the regex). Score is still directionally useful.",
+        "observability at 0.0 is a genuine gap, not a detection error \u2014 good growth target for Improve mode",
+        "**Instructions for next step:** Mark profile as reviewed, proceed to factory.md creation and factory init."
+      ],
+      "experiment_id": null
+    },
+    {
+      "role": "qa",
+      "verdict": "PROCEED",
+      "rationale": "All three QA agents passed clean. No issues.",
+      "issues": [],
+      "experiment_id": 2
+    },
+    {
+      "role": "research",
+      "verdict": "PROCEED",
+      "rationale": "Comprehensive research with 15+ web sources covering all weak dimensions. Well-structured priority matrix with realistic expected impacts. Key strengths:",
+      "issues": [
+        "Some predicted score improvements may be optimistic (observability 0.0 \u2192 0.8 depends on how many functions get logging)",
+        "Testing approach (browser-based HTML test files) may not integrate easily with factory eval (which needs CLI-runnable test commands)",
+        "**Instructions for next step:** Strategist should generate hypotheses from this research. Priority: (1) observability/logging first (P0, growth dimension), (2) if budget allows, testing or capability_surface. The testing hypothesis needs special attention \u2014 ensure the proposed test approach is CLI-runnable (not browser-only) for factory eval integration."
+      ],
+      "experiment_id": null
+    },
+    {
+      "role": "strategy",
+      "verdict": "PROCEED",
+      "rationale": "Both hypotheses are well-structured, specific, and grounded in research findings.",
+      "issues": [],
+      "experiment_id": null
+    }
+  ],
+  "observations": [
+    {
+      "source": "observations.md",
+      "content": "# Interaction Study \u2014 run-a221889d: Analyzed 3 conversation log(s), 4 relevant messages.",
+      "timestamp": "2026-08-19 15:07:13.950655",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "User Messages (2): - Project: /Users/ggiannon/Documents/gcg/learnable-labs/.factory-worktrees/run-a221889d\nMode: discover",
+      "timestamp": "2026-08-19 15:07:13.950669",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Branch Override: Target branch for all PRs and merges: `main`\nThe Builder should create experim\n- Create factory.md from template. Copy the factory config template to the project root. Fill in: Goal, Scope, Guards, Eval command, Threshold, and Smoke Test.\nRead: .factory/eval_profile.json\n\nProject",
+      "timestamp": "2026-08-19 15:07:13.950673",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Errors and Issues (2): - - **observability:** 0.0 (no logging/error handling \u2014 valid weakness to improve)\n- - **observability**: 0.0 \u2014 no logging/error handling (realistic for a vanilla frontend)",
+      "timestamp": "2026-08-19 15:07:13.950676",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Similar Projects: - [PREMPATIL19/velvet](https://github.com/PREMPATIL19/velvet) (0 stars) \u2014 <div align=\"center\">  <img src=\"/assets/logo.png\" width=\"150\" height=\"150\" />  # Velvet  Velvet is a lightweight tool designed for seamless project management and collaboration. \ud83c\udf1f Join us in building \n- [Dzodah8772/ArchFlux](https://github.com/Dzodah8772/ArchFlux) (0 stars) \u2014 <p align=\"center\">   <img src=\"assets/logo.png\" width=\"180\" alt=\"ArchFlux Logo\"> </p>  <h1 align=\"center\">ArchFlux BSPWM + i3 Live ISO</h1>  <p align",
+      "timestamp": "2026-08-19 15:07:13.950679",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "SPEC: No SPEC.md found. Run 'factory spec generate <path>' to generate one.",
+      "timestamp": "2026-08-19 15:07:13.950681",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Open GitHub Issues: No open issues found (or not a GitHub repo).",
+      "timestamp": "2026-08-19 15:07:13.950683",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Backlog: Backlog is empty. Focus on new improvements and hygiene.",
+      "timestamp": "2026-08-19 15:07:13.950684",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Observability Coverage: - **Score:** 0.0%\n- **Function coverage:** 0/0 functions have logging (0%)\n- **Total log statements:** 0\n- **Structured logging:** No\n- **Request tracing:** No\n\n### Observability Recommendations\n- No source files found to analyze.",
+      "timestamp": "2026-08-19 15:07:13.950687",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Prior Knowledge (Obsidian): No prior notes found.",
+      "timestamp": "2026-08-19 15:07:13.950688",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Hypothesis Budget: **Backlog items: 0** (clear as many as possible this cycle)\n**New items: at most 2** (researcher/strategist may add new ideas)\n**Growth minimum: 1** (at least 1 hypotheses must target growth dimensions)\n\n### Rules\n\n- Read the backlog first. Pick items to implement this cycle \u2014 no cap on clearing.\n- You may add at most 2 NEW items that aren't already in the backlog.\n- At least 1 hypotheses must target growth dimensions (capability_surface, factory_effectiveness, research_grounding, experiment_div",
+      "timestamp": "2026-08-19 15:07:13.950692",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Episodic Memory (Task-Relevant): No results found for: \"/Users/ggiannon/Documents/gcg/learnable-labs/.factory-worktrees/run-a221889d\"",
+      "timestamp": "2026-08-19 15:07:13.950694",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Past QA Findings: No results found for: \"code review issues findings\"",
+      "timestamp": "2026-08-19 15:07:13.950696",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Design Rationale: No results found for: \"decision rationale tradeoff\"",
+      "timestamp": "2026-08-19 15:07:13.950697",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Anti-Patterns & Past Failures: No results found for: \"failed reverted broken\"",
+      "timestamp": "2026-08-19 15:07:13.950699",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": "observations.md",
+      "content": "Experiment Outcomes: No results found for: \"experiment verdict keep revert\"",
+      "timestamp": "2026-08-19 15:07:13.950701",
+      "project": "run-a221889d",
+      "tags": [
+        "observation"
+      ]
+    },
+    {
+      "source": ".factory/archive/experiments/001.json",
+      "content": "Factory's JS observability dimension does not detect console logging; JavaScript logging changes are invisible until project eval is properly weighted.",
+      "timestamp": "2026-08-19 15:07:13.950988",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/experiments/002.json",
+      "content": "Pure function extraction before writing tests improves test clarity and reduces coupling. Factory's tests dimension requires explicit project configuration to detect JavaScript unit tests.",
+      "timestamp": "2026-08-19 15:07:13.951048",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/experiments/004.json",
+      "content": "Eval weights must include project dimension (weight >= 0.50) for JavaScript projects, otherwise project-specific improvements are completely invisible in composite score. The factory finalize gate uses its own precheck and can override CEO KEEP verdicts; use --force when gate has structural config issues.",
+      "timestamp": "2026-08-19 15:07:13.951099",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/memory/context.md",
+      "content": "## Episodic Memory (Task-Relevant)\n\n  No results found for: \"/Users/ggiannon/Documents/gcg/learnable-labs/.factory-worktrees/run-a221889d\"\n\n\n## Past QA Findings\n\n  No results found for: \"code review issues findings\"\n\n\n## Design Rationale\n\n  No results found for: \"decision rationale tradeoff\"\n\n\n## Anti-Patterns & Past Failures\n\n  No results found for: \"failed reverted broken\"\n\n\n## Knowledge Graph Facts\n\n\n## Timeline\n\n\n## Experiment Outcomes\n\n  No results found for: \"experiment verdict keep revert",
+      "timestamp": "2026-08-19 15:07:13.951895",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/memory/decisions.md",
+      "content": "\n  No results found for: \"decision rationale tradeoff\"\n",
+      "timestamp": "2026-08-19 15:07:13.952085",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/memory/episodes.md",
+      "content": "\n  No results found for: \"/Users/ggiannon/Documents/gcg/learnable-labs/.factory-worktrees/run-a221889d\"\n",
+      "timestamp": "2026-08-19 15:07:13.952309",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/memory/outcomes.md",
+      "content": "\n  No results found for: \"experiment verdict keep revert\"\n",
+      "timestamp": "2026-08-19 15:07:13.952694",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/memory/reviews.md",
+      "content": "\n  No results found for: \"code review issues findings\"\n",
+      "timestamp": "2026-08-19 15:07:13.952911",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    },
+    {
+      "source": ".factory/archive/strategies/run-a221889d-2026-08-19.md",
+      "content": "---\ncycle: run-a221889d\nproject: learnable-labs\ndate: 2026-08-19\nphase: archive\nsource: factory-archivist\n---\n\n# Factory Cycle Summary \u2014 LEARNable Labs (First Cycle)\n\n## Overview\nFirst factory cycle on LEARNable Labs, a vanilla HTML/CSS/JavaScript web app (no build step, no frameworks). Baseline composite score: 0.48. Final composite score: 0.7209 (+0.2409, +50.2% improvement).\n\n## Mode\nDiscover \u2192 Review \u2192 Improve\n\n## Experiments\n\n### Exp #1: Global Error Handlers and Structured Logging\n- **Verd",
+      "timestamp": "2026-08-19 15:07:13.953018",
+      "project": "run-a221889d",
+      "tags": [
+        "archive"
+      ]
+    }
+  ],
+  "verdict_patterns": {
+    "build:PROCEED": 1,
+    "discover:PROCEED": 1,
+    "doc-freshness:PROCEED": 1,
+    "e2e:PROCEED": 1,
+    "eval:PROCEED": 1,
+    "qa:PROCEED": 1,
+    "research:PROCEED": 1,
+    "strategy:PROCEED": 1
+  }
+}

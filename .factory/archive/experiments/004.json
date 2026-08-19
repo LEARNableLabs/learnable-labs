@@ -1,0 +1,46 @@
+{
+  "experiment_id": 4,
+  "hypothesis": "Combine global error handlers, structured logging, unit tests, and code extraction to improve observability, reliability, and testability",
+  "category": "BUILD",
+  "verdict": "keep",
+  "score_before": 0.48,
+  "score_after": 0.7209,
+  "score_delta": 0.2409,
+  "dimensions_changed": {
+    "tests": [0.0, 0.8],
+    "observability": [0.3, 0.7],
+    "code_reusability": [0.4, 0.7]
+  },
+  "ceo_rationale": "After fixing eval weights (project_eval weight = 0.50), combined H1+H2 changes deliver +50% composite improvement. Tests dimension jumps from 0 (no tests) to 0.8 (32 unit tests). Observability improves with structured logging throughout all modules. Code extraction reduces coupling and improves reusability. Kept with --force after fixing eval gate config.",
+  "learned": "Eval weights must include project dimension (weight >= 0.50) for JavaScript projects, otherwise project-specific improvements are completely invisible in composite score. The factory finalize gate uses its own precheck and can override CEO KEEP verdicts; use --force when gate has structural config issues.",
+  "anti_patterns": ["try/catch in requestAnimationFrame does not re-schedule animation after error — converts silent freeze to logged freeze but animation still stops on transient errors"],
+  "playbook_proposals": [
+    {
+      "role": "strategist",
+      "type": "DO",
+      "content": "For JavaScript/vanilla projects, explicitly configure eval_weights with project >= 0.50 and declare project_eval dimensions before starting experiments",
+      "confidence": "high"
+    },
+    {
+      "role": "builder",
+      "type": "DO",
+      "content": "Extract pure functions from main module before writing tests to reduce coupling and improve test clarity",
+      "confidence": "high"
+    },
+    {
+      "role": "builder",
+      "type": "DO",
+      "content": "Add structured logging at module level with context capture (userAgent, screen, canvas dimensions) for observability",
+      "confidence": "high"
+    },
+    {
+      "role": "builder",
+      "type": "DO",
+      "content": "Add global error handlers (window.onerror, unhandledrejection) and try/catch in requestAnimationFrame callbacks",
+      "confidence": "medium"
+    }
+  ],
+  "issue": null,
+  "pr": null,
+  "date": "2026-08-19"
+}

@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "timestamp": "2026-08-19 15:04:11.092300",
+  "hypothesis": "H2-retry: CLI-runnable unit tests + observability",
+  "change_summary": "",
+  "issue_number": null,
+  "pr_number": 2,
+  "score_before": null,
+  "score_after": null,
+  "delta": null,
+  "verdict": "revert",
+  "cost_usd": null,
+  "notes": "[OVERRIDDEN by finalize gate] precheck failed: score_direction; qa_execution. ceo:keep composite=0.7209 tests_pass=32/32 qa_all_pass=true config_weights_fixed=true",
+  "research_citations": []
+}

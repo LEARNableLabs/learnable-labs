@@ -6,6 +6,29 @@
 'use strict';
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   LOGGER & ERROR HANDLERS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+const Logger = {
+  _context: {},
+  setContext(ctx) { Object.assign(this._context, ctx); },
+  _ts() { return new Date().toISOString(); },
+  debug(data) { console.log('[DEBUG]', { ts: this._ts(), level: 'debug', ctx: this._context, data: data }); },
+  info(data) { console.log('[INFO]', { ts: this._ts(), level: 'info', ctx: this._context, data: data }); },
+  warn(data) { console.warn('[WARN]', { ts: this._ts(), level: 'warn', ctx: this._context, data: data }); },
+  error(data) { console.error('[ERROR]', { ts: this._ts(), level: 'error', ctx: this._context, data: data }); },
+  fatal(data) { console.error('[FATAL]', { ts: this._ts(), level: 'fatal', ctx: this._context, data: data }); }
+};
+
+window.addEventListener('error', function(e) {
+  Logger.error({ type: 'uncaught_error', message: e.message, source: e.filename, line: e.lineno, column: e.colno, stack: e.error && e.error.stack });
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+  Logger.error({ type: 'unhandled_rejection', reason: String(e.reason) });
+});
+
+/* ═══════════════════════════════════════════════════════════════════════════
    CONFIGURATION & CONSTANTS
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -268,6 +291,7 @@ const ShapeRenderer = {
 
   initPoints() {
     const shape = getVal('s-shape');
+    Logger.info({ module: 'ShapeRenderer', event: 'shape_switch', shape: shape });
     if (shape === 'diverge') {
       state.divergeBaseShape = GEOMETRIC_SHAPES[Math.floor(Math.random() * GEOMETRIC_SHAPES.length)];
     }
@@ -303,29 +327,10 @@ const ShapeRenderer = {
     const count = state.shapePoints.length;
 
     switch (shape) {
-      case 'torus': {
-        const u = t * Math.PI * 2;
-        const v = (idx % 20) / 20 * Math.PI * 2 + 0.001 * frame * rotSpeed;
-        return {
-          x: cx + (majorR + minorR * Math.cos(v)) * Math.cos(u),
-          y: cy + (majorR + minorR * Math.cos(v)) * Math.sin(u),
-          z: minorR * Math.sin(v)
-        };
-      }
-      case 'sphere': {
-        const golden = (1 + Math.sqrt(5)) / 2;
-        const phi = 2 * Math.PI * idx / golden + 0.0005 * frame * rotSpeed;
-        const theta = Math.acos(1 - 2 * t);
-        const sx = majorR * Math.sin(theta) * Math.cos(phi);
-        const sy = majorR * Math.sin(theta) * Math.sin(phi);
-        const sz = majorR * Math.cos(theta);
-        const rot = 0.001 * frame * rotSpeed;
-        return {
-          x: cx + sx * Math.cos(rot) - sz * Math.sin(rot),
-          y: cy + sy,
-          z: sx * Math.sin(rot) + sz * Math.cos(rot)
-        };
-      }
+      case 'torus':
+        return Core.torusPoint(t, idx, majorR, minorR, rotSpeed, frame, cx, cy);
+      case 'sphere':
+        return Core.spherePoint(t, idx, majorR, rotSpeed, frame, cx, cy);
       case 'circle': {
         const r = majorR + 15 * Math.sin(frame * 0.001 + idx);
         const a = t * Math.PI * 2;
@@ -351,17 +356,8 @@ const ShapeRenderer = {
         const rz = px * Math.sin(rot) + pz * Math.cos(rot);
         return { x: cx + rx, y: cy + py, z: rz };
       }
-      case 'helix': {
-        const turns = 4;
-        const angle = t * turns * Math.PI * 2 + 0.001 * frame * rotSpeed;
-        const helixY = (t - 0.5) * majorR * 2;
-        const helixR = minorR * 1.5;
-        return {
-          x: cx + Math.cos(angle) * helixR,
-          y: cy + helixY,
-          z: Math.sin(angle) * helixR
-        };
-      }
+      case 'helix':
+        return Core.helixPoint(t, majorR, minorR, rotSpeed, frame, cx, cy);
       case 'lorenz': {
         const sigma = 10, rho = 28, beta = 8/3;
         const dt = 0.002 * rotSpeed;
@@ -497,6 +493,7 @@ const ShapeRenderer = {
   },
 
   draw() {
+    try {
     const w = this.canvas.width;
     const h = this.canvas.height;
     const cx = w / 2;
@@ -535,7 +532,7 @@ const ShapeRenderer = {
             const rpx = px * Math.cos(rot) - tpz * Math.sin(rot);
             const rpz = px * Math.sin(rot) + tpz * Math.cos(rot);
 
-            const persp = 800 / (800 + rpz);
+            const persp = Core.perspectiveScale(800, rpz);
             const screenX = cx + rpx * persp;
             const screenY = cy + tpy * persp;
 
@@ -567,7 +564,7 @@ const ShapeRenderer = {
             const px = Math.cos(angle) * cylRadius;
             const pz = Math.sin(angle) * cylRadius;
 
-            const persp = 800 / (800 + pz);
+            const persp = Core.perspectiveScale(800, pz);
             const screenX = cx + px * persp;
             const screenY = cy + rowY * persp;
 
@@ -589,7 +586,7 @@ const ShapeRenderer = {
     for (let i = 0; i < state.shapePoints.length; i++) {
       const p = state.shapePoints[i];
       const pos = this.getPosition(p, shape, state.frameCount, cx, cy);
-      const perspective = 800 / (800 + pos.z);
+      const perspective = Core.perspectiveScale(800, pos.z);
       const sx = cx + (pos.x - cx) * perspective;
       const sy = cy + (pos.y - cy) * perspective;
       const depthNorm = (pos.z + 300) / 600;
@@ -599,6 +596,9 @@ const ShapeRenderer = {
 
     this.drawPoints(rendered, repelStrength, glowSize);
     state.shapeAnimId = requestAnimationFrame(() => this.draw());
+    } catch (err) {
+      Logger.error({ module: 'ShapeRenderer', event: 'render_error', error: err.message, stack: err.stack });
+    }
   }
 };
 
@@ -609,6 +609,7 @@ const ShapeRenderer = {
 const CASimulator = {
   initLife() {
     const gs = getVal('r-gridsize');
+    Logger.info({ module: 'CASimulator', event: 'life_init', gridSize: gs });
     state.lifeGrid = [];
     state.lifeGeneration = 0;
     state.lifeTickCounter = 0;
@@ -626,15 +627,7 @@ const CASimulator = {
     for (let y = 0; y < gs; y++) {
       next[y] = [];
       for (let x = 0; x < gs; x++) {
-        let neighbors = 0;
-        for (let dy = -1; dy <= 1; dy++) {
-          for (let dx = -1; dx <= 1; dx++) {
-            if (dx === 0 && dy === 0) continue;
-            const ny = (y + dy + gs) % gs;
-            const nx = (x + dx + gs) % gs;
-            if (state.lifeGrid[ny] && state.lifeGrid[ny][nx]) neighbors++;
-          }
-        }
+        const neighbors = Core.countLifeNeighbors(state.lifeGrid, x, y, gs);
         if (state.lifeGrid[y] && state.lifeGrid[y][x]) {
           next[y][x] = (neighbors === 2 || neighbors === 3) ? 1 : 0;
         } else {
@@ -657,6 +650,7 @@ const CASimulator = {
 
   initWolfram() {
     const ww = getVal('r-wolframw');
+    Logger.info({ module: 'CASimulator', event: 'wolfram_init', width: ww });
     state.wolframRows = [];
     state.wolframTickCounter = 0;
     const first = [];
@@ -675,8 +669,7 @@ const CASimulator = {
       const left = prev[(i - 1 + ww) % ww];
       const center = prev[i];
       const right = prev[(i + 1) % ww];
-      const pattern = (left << 2) | (center << 1) | right;
-      next[i] = (rule >> pattern) & 1;
+      next[i] = Core.applyWolframRule(left, center, right, rule);
     }
     state.wolframRows.push(next);
     if (state.wolframRows.length > maxRows) {
@@ -708,6 +701,7 @@ const BackgroundParticles = {
     this.ctx = this.canvas.getContext('2d');
     this.resize();
     window.addEventListener('resize', () => this.resize());
+    Logger.info({ module: 'BackgroundParticles', event: 'init', width: this.canvas.width, height: this.canvas.height });
   },
 
   resize() {
@@ -738,6 +732,7 @@ const BackgroundParticles = {
   },
 
   animate() {
+    try {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     for (let i = 0; i < this.particles.length; i++) {
@@ -772,6 +767,9 @@ const BackgroundParticles = {
     }
 
     state.bgAnimId = requestAnimationFrame(() => this.animate());
+    } catch (err) {
+      Logger.error({ module: 'BackgroundParticles', event: 'animation_error', error: err.message, stack: err.stack });
+    }
   }
 };
 
@@ -782,10 +780,12 @@ const BackgroundParticles = {
 const ScrollReveal = {
   setupObserver() {
     const thresh = getVal('r-thresh');
+    Logger.info({ module: 'ScrollReveal', event: 'observer_setup', threshold: thresh });
     if (state.observer) state.observer.disconnect();
     state.observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          Logger.debug({ module: 'ScrollReveal', event: 'reveal', target: entry.target.className });
           entry.target.classList.add('visible');
           state.observer.unobserve(entry.target);
         }
@@ -889,6 +889,7 @@ const UIController = {
           const unit = slider.dataset.unit || '';
           valEl.textContent = slider.value + unit;
         }
+        Logger.debug({ module: 'UIController', event: 'control_update', control: id, value: slider.value });
         this.applyStyles();
         this.updatePrompt();
       });
@@ -986,6 +987,7 @@ const UIController = {
         const name = btn.dataset.preset;
         const preset = PRESETS[name];
         if (!preset) return;
+        Logger.info({ module: 'UIController', event: 'preset_change', preset: name });
 
         Object.keys(preset).forEach(key => {
           if (key !== 'easing') {
@@ -1100,6 +1102,11 @@ function init() {
   window.scrollTo(0, 0);
   generateControls();
   ShapeRenderer.init();
+  Logger.setContext({
+    userAgent: navigator.userAgent,
+    screen: { width: screen.width, height: screen.height },
+    canvas: { width: ShapeRenderer.canvas.width, height: ShapeRenderer.canvas.height }
+  });
   CASimulator.initLife();
   CASimulator.initWolfram();
   BackgroundParticles.init();

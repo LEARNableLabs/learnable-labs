@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "timestamp": "2026-08-19 14:43:44.492370",
+  "hypothesis": "H1: Add global error handlers and structured logging to all modules",
+  "change_summary": "",
+  "issue_number": null,
+  "pr_number": 2,
+  "score_before": null,
+  "score_after": null,
+  "delta": null,
+  "verdict": "revert",
+  "cost_usd": 3.02589475,
+  "notes": "[OVERRIDDEN by finalize gate] precheck failed: score_direction. ceo:keep precheck_override=true reason=structural_threshold composite_delta=+0.002 project_eval_observability=0.0_to_1.0 factory_builtin_observability_broken_for_js=true qa_iterations=1 qa_result=PASS code_review_issues=2_important_0_critical",
+  "research_citations": []
+}

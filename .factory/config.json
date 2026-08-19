@@ -1,0 +1,105 @@
+{
+  "goal": "Interactive animation playground and landing page for LEARNable Labs ed-tech venture",
+  "scope": [
+    "index.html",
+    "index.js",
+    "index.css",
+    "LEARNABLE.md",
+    "eval/**"
+  ],
+  "guards": [
+    "Do not delete or overwrite existing tests",
+    "Do not modify files outside the declared scope",
+    "Do not introduce secrets or credentials into the repository",
+    "Do not remove existing animation features",
+    "Do not add build dependencies or frameworks",
+    "Do not break the single-page vanilla architecture"
+  ],
+  "eval_command": "python3 eval/score.py",
+  "eval_threshold": 0.7,
+  "constraints": [
+    "Prefer small, incremental changes over large rewrites",
+    "Maintain the vanilla HTML/CSS/JS architecture with no build step",
+    "Follow the existing code style and conventions",
+    "Keep the single-page app structure intact"
+  ],
+  "hypothesis_budget": {
+    "min_growth": 1,
+    "max_new": 2
+  },
+  "target_branch": "main",
+  "smoke_test": "node --check index.js && python3 -c \"import json,subprocess; r=json.loads(subprocess.check_output(['python3','eval/score.py'])); assert all(d['passed'] for d in r['results'] if d['weight']>0.1)\"",
+  "project_eval": [
+    {
+      "name": "js_syntax",
+      "command": "python3 eval/dim.py js_syntax",
+      "parse": "json",
+      "weight": 1.0,
+      "description": "Verify index.js has no syntax errors"
+    },
+    {
+      "name": "html_structure",
+      "command": "python3 eval/dim.py html_structure",
+      "parse": "json",
+      "weight": 1.0,
+      "description": "Check index.html for required structural elements"
+    },
+    {
+      "name": "css_validity",
+      "command": "python3 eval/dim.py css_validity",
+      "parse": "json",
+      "weight": 1.0,
+      "description": "Check CSS validity and balanced braces"
+    },
+    {
+      "name": "code_modularity",
+      "command": "python3 eval/dim.py code_modularity",
+      "parse": "json",
+      "weight": 1.0,
+      "description": "Analyze index.js for modular structure"
+    },
+    {
+      "name": "feature_completeness",
+      "command": "python3 eval/dim.py feature_completeness",
+      "parse": "json",
+      "weight": 1.0,
+      "description": "Check for key feature markers in index.js"
+    },
+    {
+      "name": "observability",
+      "command": "python3 eval/dim.py observability",
+      "parse": "json",
+      "weight": 1.0,
+      "description": "Check for logging and error handling"
+    },
+    {
+      "name": "tests",
+      "command": "python3 eval/dim.py tests",
+      "parse": "json",
+      "weight": 1.0,
+      "description": "Run CLI unit tests"
+    }
+  ],
+  "eval_weights": {
+    "hygiene": 0.25,
+    "growth": 0.25,
+    "project": 0.5
+  },
+  "research_target": null,
+  "inner_loop": null,
+  "outer_loop": null,
+  "mutable_surfaces": [],
+  "fixed_surfaces": [],
+  "research_constraints": [],
+  "cost_budget": null,
+  "hard_constraints": [],
+  "eval_spec": [],
+  "hygiene_weights": null,
+  "growth_weights": null,
+  "adversarial": null,
+  "parallel": null,
+  "clean_pr": false,
+  "clean_pr_include": [],
+  "clean_pr_exclude": [],
+  "test_timeout": 300
+}
